@@ -1,0 +1,132 @@
+import React from 'react';
+
+class Register extends React.Component {
+    documentData;
+    constructor(props){
+        super(props);
+        this.handleChange=this.handleChange.bind(this);
+        this.handleFormSubmit= this.handleFormSubmit.bind(this);
+        this.state={
+            fname:'',
+            lname:'',
+            email:'',
+            mobile:'',
+            uname:'',
+            pswd:''
+        }
+    }
+    handleChange=(e)=>{
+        this.setState({[e.target.name]:e.target.value});
+
+    }
+    //on form submit.
+    handleFormSubmit(e){
+        e.preventDefault()
+        localStorage.setItem('document',JSON.stringify(this.state));
+    }
+    componentDidMount() {
+        this.documentData=JSON.parse(localStorage.getItem('document'));
+        if(localStorage.getItem('document')){
+            this.setState({
+                fname:this.documentData.fname,
+                lname:this.documentData.lname,
+                email:this.documentData.email,
+                mobile:this.documentData.mobile,
+                uname:this.documentData.uname,
+                pswd:this.documentData.pswd
+            })
+        }
+        else{
+            this.setState({
+                fname:'',
+            lname:'',
+            email:'',
+            mobile:'',
+            uname:'',
+            pswd:''
+                
+            })
+        }
+    }
+    render(){
+    return (
+        <div className="jumbotron">
+        <h1 className="display-3" align="center">Register Page</h1>
+        <hr className="my-2" />
+        <form onSubmit={this.handleFormSubmit} action="/cart">
+            <table  cellPadding="20"align="center">
+            <div class="form-group">
+             
+              <tr>
+                  <td>
+                  <label for="fname">First Name:</label>
+                  </td>
+
+                 
+               <td><input type="text" name="fname" id="fname" className="form-control" value={this.state.fname} onChange={this.handleChange}   /> </td> 
+                <td><small id="fnameHelp" class="text-muted">
+                    Please provide your First name
+                </small></td>
+                </tr>  
+            
+                <tr>
+                <td>  <label for="lname">Last Name:</label></td>
+                <td> <input type="text" name="lname" id="lname" className="form-control" value={this.state.lname} onChange={this.handleChange}  /></td>
+                <td>  <small id="lnameHelp" class="text-muted">
+                    Please provide your last name
+                </small></td>
+                </tr>  
+          
+                <tr>
+                <td>  <label for="email">Email:</label></td>
+                <td>  <input type="text" name="email" id="email" className="form-control" value={this.state.email} onChange={this.handleChange}   /></td>
+                <td>  <small id="emailHelp" class="text-muted">
+                    Please provide your email
+                </small></td>
+                </tr> 
+
+                
+                <tr>
+                <td>  <label for="mobile">Mobile No:</label></td>
+                <td>  <input type="text" name="mobile" id="mobile" className="form-control" value={this.state.mobile} onChange={this.handleChange}  /></td>
+                <td>  <small id="mobileHelp" class="text-muted">
+                    Please provide your Mobile Number
+                </small></td>
+                </tr> 
+           
+                <tr>
+                <td>   <label for="uname">User Name:</label></td>
+                <td>   <input type="text" name="uname" id="uname" className="form-control" value={this.state.uname} onChange={this.handleChange}  /></td>
+                <td>  <small id="unameHelp" class="text-muted">
+                    Please provide your User Name
+                </small></td>
+                </tr> 
+           
+                <tr>
+                <td> <label for="pswd">Password:</label></td>
+              
+                <td> <input type="text" name="pswd" id="pswd" className="form-control" value={this.state.pswd} onChange={this.handleChange}   /></td>
+                <td>  <small id="unameHelp" class="text-muted">
+                    Please provide your Password
+                </small></td>
+                </tr> 
+              
+                <tr>
+                    
+                    
+                    
+                <td>    
+            <div class="form-group">
+                <button className="btn btn-sm btn-primary">Register</button>
+            </div>
+            </td>
+            </tr> 
+            </div>
+            </table>
+        </form>
+    </div>
+);
+}
+}
+
+export default Register;
